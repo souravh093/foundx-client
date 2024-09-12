@@ -2,13 +2,11 @@ import React from "react";
 import Container from "../../ui/Container";
 import { Button } from "@nextui-org/button";
 import Link from "next/link";
+import { getRecentPost } from "@/src/services/RecentPost";
 
 const RecentPost = async () => {
 
-  const res = await fetch("http://localhost:5000/api/v1/items?sortBy=createdAt&limit=3");
-  const {data} = await res.json();
-
-  console.log(data)
+  const {data} = await getRecentPost()
 
   return (
     <Container>
