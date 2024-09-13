@@ -15,6 +15,8 @@ import clsx from "clsx";
 import { siteConfig } from "@/src/config/site";
 import { ThemeSwitch } from "@/src/components/ui/theme-switch";
 import { Logo } from "@/src/components/icons";
+import { Avatar } from "@nextui-org/avatar";
+import ProfileDropdown from "./profileDropdown";
 
 export const Navbar = () => {
   return (
@@ -50,6 +52,9 @@ export const Navbar = () => {
       >
         <NavbarItem className="hidden sm:flex gap-2">
           <ThemeSwitch />
+        </NavbarItem>
+        <NavbarItem>
+         <ProfileDropdown />
         </NavbarItem>
       </NavbarContent>
 

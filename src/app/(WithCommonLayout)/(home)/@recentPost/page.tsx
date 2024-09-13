@@ -1,14 +1,13 @@
 import React from "react";
-import Container from "../../ui/Container";
 import { Button } from "@nextui-org/button";
 import Link from "next/link";
 import { getRecentPost } from "@/src/services/RecentPost";
-import Card from "../../ui/card";
 import { TPOst } from "@/src/types";
+import Container from "@/src/components/ui/Container";
+import Card from "@/src/components/ui/card";
 
 const RecentPost = async () => {
-
-  const {data} = await getRecentPost()
+  const { data } = await getRecentPost();
 
   return (
     <Container>
