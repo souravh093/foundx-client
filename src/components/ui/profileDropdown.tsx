@@ -18,13 +18,7 @@ export default function ProfileDropdown() {
       </DropdownTrigger>
       <DropdownMenu aria-label="Static Actions">
         <DropdownItem key="new">
-          <Link href="/profile/about">About</Link>
-        </DropdownItem>
-        <DropdownItem key="new">
-          <Link href="/profile/claim-request">Claim Request</Link>
-        </DropdownItem>
-        <DropdownItem key="new">
-          <Link href="/profile/create-post">Create Post</Link>
+          <Link href="/profile">Profile</Link>
         </DropdownItem>
         <DropdownItem key="new">
           <Link href="/profile/settings">Settings</Link>
