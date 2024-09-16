@@ -1,3 +1,5 @@
+"use client";
+
 import { ReactNode } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 
@@ -23,6 +25,7 @@ const FXForm = ({ children, onSubmit, defaultValues, resolver }: IProps) => {
   }
 
   const methods = useForm(formConfig);
+
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>{children}</form>
