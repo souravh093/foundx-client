@@ -7,19 +7,19 @@ import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerValidationSchema } from "@/src/schemas/login.schema";
 import { FieldValues, SubmitHandler } from "react-hook-form";
-import { registerUser } from "@/src/services/AuthService";
+import { useUserRegistration } from "@/src/hooks/auth.hook";
 
 const RegisterPage = () => {
+  const { mutate: handleRegistration, isPending } = useUserRegistration();
+
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log(data);
     const userData = {
       ...data,
       profilePhoto:
         "https://cdn.pixabay.com/photo/2021/07/02/04/48/user-6380868_1280.png",
     };
 
-    console.log("check user data", userData)
-    await registerUser(userData);
+    handleRegistration(userData);
   };
 
   return (
@@ -49,7 +49,7 @@ const RegisterPage = () => {
             size="lg"
             type="submit"
           >
-            Register
+            {isPending ? "Registering" : "Register"}
           </Button>
         </FXForm>
         <div className="text-center">
