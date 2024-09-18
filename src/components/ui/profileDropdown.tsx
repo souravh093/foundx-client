@@ -10,8 +10,15 @@ import {
 import { Avatar } from "@nextui-org/avatar";
 import Link from "next/link";
 import { logout } from "@/src/services/AuthService";
+import { useUser } from "@/src/context/user.provider";
 
 export default function ProfileDropdown() {
+  const { setLoading } = useUser();
+  const handleLogout = () => {
+    logout();
+
+    setLoading(true);
+  };
   return (
     <Dropdown>
       <DropdownTrigger>
@@ -25,7 +32,7 @@ export default function ProfileDropdown() {
           <Link href="/profile/settings">Settings</Link>
         </DropdownItem>
         <DropdownItem
-          onClick={() => logout()}
+          onClick={handleLogout}
           key="delete"
           className="text-danger"
           color="danger"

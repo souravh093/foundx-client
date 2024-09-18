@@ -28,7 +28,6 @@ export async function middleware(request: NextRequest) {
 
   if (user?.role && RoleBasedRoutes[user?.role as Role]) {
     const routes = RoleBasedRoutes[user?.role as Role];
-
     if (routes.some((route) => pathname.match(route))) {
       return NextResponse.next();
     }
