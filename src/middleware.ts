@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
+import { currentUser } from "./services/AuthService";
 
 type Role = keyof typeof RoleBasedRoutes;
 
@@ -10,16 +11,10 @@ const RoleBasedRoutes = {
   ADMIN: [/^\/admin/],
 };
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // const user = {
-  //   name: "Sourave halder",
-  //   token: "24320487dlfjl423421111",
-  //   role: "ADMIN",
-  // };
-
-  const user = undefined;
+  const user = await currentUser();
 
   if (!user) {
     if (AuthRoutes.includes(pathname)) {
