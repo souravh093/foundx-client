@@ -36,10 +36,15 @@ export const loginUser = async (userData: FieldValues) => {
   }
 };
 
+export const logout = () => {
+  cookies().delete("accessToken");
+  cookies().delete("refreshToken");
+};
+
 export const currentUser = async () => {
   const accessToken = cookies().get("accessToken")?.value;
 
-  let decoded: Partial<TUser> | null = null;
+  let decoded = null;
 
   if (accessToken) {
     decoded = await jwtDecode(accessToken);
@@ -51,6 +56,7 @@ export const currentUser = async () => {
       mobileNumber: decoded?.mobileNumber,
       role: decoded?.role,
       status: decoded?.status,
+      profilePhoto: decoded?.profilePhoto,
     };
   }
 

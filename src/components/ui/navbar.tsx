@@ -15,10 +15,10 @@ import clsx from "clsx";
 import { siteConfig } from "@/src/config/site";
 import { ThemeSwitch } from "@/src/components/ui/theme-switch";
 import { Logo } from "@/src/components/icons";
-import { Avatar } from "@nextui-org/avatar";
-import ProfileDropdown from "./profileDropdown";
+import AuthDynamic from "../modules/navbar/AuthDynamic";
 
 export const Navbar = () => {
+  
   return (
     <NextUINavbar maxWidth="xl" position="sticky">
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
@@ -53,9 +53,7 @@ export const Navbar = () => {
         <NavbarItem className="hidden sm:flex gap-2">
           <ThemeSwitch />
         </NavbarItem>
-        <NavbarItem>
-         <ProfileDropdown />
-        </NavbarItem>
+        <AuthDynamic />
       </NavbarContent>
 
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">

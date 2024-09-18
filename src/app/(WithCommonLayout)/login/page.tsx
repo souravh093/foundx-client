@@ -9,12 +9,30 @@ import { loginValidationSchema } from "@/src/schemas/login.schema";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { useUserLogin } from "@/src/hooks/auth.hook";
 import { Spinner } from "@nextui-org/spinner";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useUser } from "@/src/context/user.provider";
 
 const LoginPage = () => {
-  const { mutate: handleLoginUser, isPending } = useUserLogin();
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const { setLoading } = useUser();
+  const redirect = searchParams.get("redirect");
+  const { mutate: handleLoginUser, isPending, isSuccess } = useUserLogin();
+
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     handleLoginUser(data);
+    setLoading(true);
   };
+
+  // AWESOME
+  if (!isPending && isSuccess) {
+    if (redirect) {
+      router.push(redirect);
+    } else {
+      router.push("/");
+    }
+  }
 
   return (
     <>

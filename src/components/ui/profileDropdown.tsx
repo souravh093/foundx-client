@@ -9,6 +9,7 @@ import {
 } from "@nextui-org/dropdown";
 import { Avatar } from "@nextui-org/avatar";
 import Link from "next/link";
+import { logout } from "@/src/services/AuthService";
 
 export default function ProfileDropdown() {
   return (
@@ -23,7 +24,12 @@ export default function ProfileDropdown() {
         <DropdownItem key="new">
           <Link href="/profile/settings">Settings</Link>
         </DropdownItem>
-        <DropdownItem key="delete" className="text-danger" color="danger">
+        <DropdownItem
+          onClick={() => logout()}
+          key="delete"
+          className="text-danger"
+          color="danger"
+        >
           Logout
         </DropdownItem>
       </DropdownMenu>
