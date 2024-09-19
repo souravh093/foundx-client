@@ -45,3 +45,14 @@ export interface TUser {
   updatedAt?: string;
   __v?: number;
 }
+
+export interface IInput {
+  variant?: "flat" | "bordered" | "faded" | "underlined";
+  size?: "sm" | "md" | "lg";
+  required?: boolean;
+  type?: string;
+  label: string;
+  placeholder?: string;
+  name: string;
+  isDisabled?: boolean;
+}

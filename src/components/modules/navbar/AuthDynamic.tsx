@@ -5,6 +5,7 @@ import { NavbarItem } from "@nextui-org/navbar";
 import React from "react";
 import ProfileDropdown from "../../ui/profileDropdown";
 import Link from "next/link";
+import { Button } from "@nextui-org/button";
 
 const AuthDynamic = () => {
   const { user } = useUser();
@@ -15,7 +16,9 @@ const AuthDynamic = () => {
           <ProfileDropdown />
         </NavbarItem>
       ) : (
-        <Link href="/login">Login</Link>
+        <Link href="/login">
+          <Button>Login</Button>
+        </Link>
       )}
     </>
   );
