@@ -11,18 +11,21 @@ import { Avatar } from "@nextui-org/avatar";
 import Link from "next/link";
 import { logout } from "@/src/services/AuthService";
 import { useUser } from "@/src/context/user.provider";
+import { useRouter } from "next/navigation";
 
 export default function ProfileDropdown() {
-  const { setLoading } = useUser();
+  const router = useRouter();
+  const { setLoading, user } = useUser();
   const handleLogout = () => {
     logout();
-
     setLoading(true);
+    router.push("/");
   };
+
   return (
     <Dropdown>
       <DropdownTrigger>
-        <Avatar className="cursor-pointer" name={"Sourave Halder"} />
+        <Avatar className="cursor-pointer" src={user?.profilePhoto} />
       </DropdownTrigger>
       <DropdownMenu aria-label="Static Actions">
         <DropdownItem key="new">
