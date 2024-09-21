@@ -2,7 +2,7 @@
 
 import FXInput from "@/src/components/form/FXInput";
 import { Button } from "@nextui-org/button";
-import React from "react";
+import React, { useState } from "react";
 import { Divider } from "@nextui-org/divider";
 import {
   FieldValues,
@@ -17,6 +17,8 @@ import { dateToISO } from "@/src/utils/dateToISO";
 import FXSelect from "@/src/components/form/FXSelect";
 import { allDistict } from "@bangladeshi/bangladesh-address";
 import { useGetCategories } from "@/src/hooks/categories.hook";
+import FXTextarea from "@/src/components/form/FXTextarea";
+import { useUser } from "@/src/context/user.provider";
 
 const cityOptions = allDistict()
   .sort()
@@ -26,6 +28,9 @@ const cityOptions = allDistict()
   }));
 
 const CreatePostProfile = () => {
+  const {user} = useUser();
+  const [imageFile, setImageFile] = useState<File[] | []>([]);
+  const [imagePreviews, setImagePreviews] = useState<string[] | []>([]);
   const { data: categories, isLoading, isSuccess } = useGetCategories();
 
   let categoryOptions: { key: string; label: string }[] = [];
@@ -61,6 +66,23 @@ const CreatePostProfile = () => {
   const handleFieldAppend = () => {
     append({ name: "questions" });
   };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+
+    setImageFile((prev) => [...prev, file]);
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        setImagePreviews((prev) => [...prev, reader.result as string]);
+      };
+
+      reader.readAsDataURL(file);
+    }
+  };
+
 
   return (
     <div className="h-full rounded-xl bg-gradient-to-b from-default-100 px-[73px] py-12">
@@ -105,12 +127,12 @@ const CreatePostProfile = () => {
                 className="hidden"
                 id="image"
                 type="file"
-                // onChange={(e) => handleImageChange(e)}
+                onChange={(e) => handleImageChange(e)}
               />
             </div>
           </div>
 
-          {/* {imagePreviews.length > 0 && (
+          {imagePreviews.length > 0 && (
             <div className="flex gap-5 my-5 flex-wrap">
               {imagePreviews.map((imageDataUrl) => (
                 <div
@@ -125,11 +147,11 @@ const CreatePostProfile = () => {
                 </div>
               ))}
             </div>
-          )} */}
+          )}
 
           <div className="flex flex-wrap-reverse gap-2 py-2">
             <div className="min-w-fit flex-1">
-              {/* <FXTextarea label="Description" name="description" /> */}
+              <FXTextarea label="Description" name="description" />
             </div>
           </div>
 
