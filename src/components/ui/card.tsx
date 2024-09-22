@@ -19,7 +19,7 @@ export default function Card({ data }: { data: TPOst }) {
       </CardHeader>
       <Image
         alt="Woman listing to music"
-        className="object-cover scale-120 z-0 h-full w-full -translate-y-6"
+        className="object-cover scale-120 z-0 h-[200px] w-full -translate-y-6"
         height={200}
         src={images[0]}
         width={200}
