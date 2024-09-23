@@ -9,11 +9,11 @@ const loading = async () => {
   return (
     <Container>
       <div className="flex items-center justify-center">
-      <TitleSkeleton />
+        <TitleSkeleton />
       </div>
       <div className="my-8 grid justify-center gap-10 sm:grid-cols-1 md:grid-cols-4">
-        {[...Array(8)].map((_idx) => (
-         <CardSkeleton key={_idx} />
+        {[...Array(8)].map((_idx, index) => (
+          <CardSkeleton key={index} />
         ))}
       </div>
       <div className="flex justify-center">

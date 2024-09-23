@@ -10,6 +10,7 @@ import { useUser } from "@/src/context/user.provider";
 import { Calendar, MapPin } from "lucide-react";
 import { Gallery } from "./ImageGallery";
 import ClaimReqModal from "../../modals/ClaimReqModal";
+import AuthenticationModal from "../../modals/AuthenticationModal";
 
 interface IProps {
   post: TPOst;
@@ -68,7 +69,16 @@ export default function Post({ post }: IProps) {
         <Gallery images={images} />
 
         <div className="mt-4 flex gap-5">
-          <ClaimReqModal id={_id} questions={questions} />
+          {email !== loggedInUser?.email && (
+            <>
+              {loggedInUser?.email ? (
+                <ClaimReqModal id={_id} questions={questions} />
+              ) : (
+                <AuthenticationModal id={_id} />
+              )}
+            </>
+          )}
+
           <Button variant="light" className="flex-1">
             Share
           </Button>

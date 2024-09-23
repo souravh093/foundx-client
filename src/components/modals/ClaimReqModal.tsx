@@ -5,6 +5,7 @@ import { FieldValues, SubmitHandler } from "react-hook-form";
 import FXInput from "../form/FXInput";
 import FXTextarea from "../form/FXTextarea";
 import { Button } from "@nextui-org/button";
+import { useCreateClaimReq } from "@/src/hooks/claimRequest.hook";
 
 const ClaimReqModal = ({
   questions,
@@ -13,8 +14,18 @@ const ClaimReqModal = ({
   questions: string[];
   id: string;
 }) => {
+  const { mutate: handleClaimRequest, isPending } = useCreateClaimReq();
+
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
+    const claimRequestData = {
+      item: id,
+      description: data.description,
+      answers: Object.keys(data)
+        .filter((formElement) => formElement.startsWith("answer"))
+        .map((answer) => data[answer]),
+    };
+
+    handleClaimRequest(claimRequestData);
   };
   return (
     <FXModal
@@ -45,7 +56,7 @@ const ClaimReqModal = ({
           variant="shadow"
           type="submit"
         >
-          Send
+          {isPending ? "Sending..." : "Sent"}
         </Button>
       </FXForm>
     </FXModal>
