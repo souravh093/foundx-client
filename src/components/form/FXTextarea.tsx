@@ -3,7 +3,7 @@
 import { IInput } from "@/src/types";
 import { Input, Textarea } from "@nextui-org/input";
 import React from "react";
-import { useFormContext } from "react-hook-form";
+import { useFormContext, useWatch } from "react-hook-form";
 
 interface IProps extends IInput {}
 
@@ -20,6 +20,8 @@ const FXTextarea = ({
     register,
     formState: { errors },
   } = useFormContext();
+
+  const currentValue = useWatch({ name });
   return (
     <Textarea
       variant={variant}
@@ -33,6 +35,7 @@ const FXTextarea = ({
       minRows={4}
       label={label}
       placeholder={placeholder}
+      value={currentValue || ""}
     />
   );
 };

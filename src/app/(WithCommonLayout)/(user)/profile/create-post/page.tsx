@@ -21,6 +21,7 @@ import FXTextarea from "@/src/components/form/FXTextarea";
 import { useUser } from "@/src/context/user.provider";
 import { useCreatePost } from "@/src/hooks/post.hook";
 import { Spinner } from "@nextui-org/spinner";
+import generateDescription from "@/src/services/ImageDescription";
 
 const cityOptions = allDistict()
   .sort()
@@ -30,6 +31,7 @@ const cityOptions = allDistict()
   }));
 
 const CreatePostProfile = () => {
+  const [loading, setLoading] = useState(false);
   const { mutate: handleCreatePost, isPending: createPostPending } =
     useCreatePost();
   const { user } = useUser();
@@ -94,6 +96,22 @@ const CreatePostProfile = () => {
       };
 
       reader.readAsDataURL(file);
+    }
+  };
+
+  const handleDescriptionGeneration = async () => {
+    setLoading(true);
+    try {
+      const res = await generateDescription(
+        imagePreviews[0],
+        "write a description for social media post given the image found this item"
+      );
+
+      methods.setValue("description", res);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
     }
   };
 
@@ -172,6 +190,21 @@ const CreatePostProfile = () => {
               <div className="min-w-fit flex-1">
                 <FXTextarea label="Description" name="description" />
               </div>
+            </div>
+
+            <div className="flex justify-end gap-5">
+              {methods.getValues("description") && (
+                <Button onClick={() => methods.resetField("description")}>
+                  Clear
+                </Button>
+              )}
+              <Button
+                isDisabled={imagePreviews.length > 0 ? false : true}
+                isLoading={isLoading}
+                onClick={() => handleDescriptionGeneration()}
+              >
+                {isLoading ? "Generating...." : "Generate with AI"}
+              </Button>
             </div>
 
             <Divider className="my-5" />

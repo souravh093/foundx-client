@@ -3,8 +3,17 @@ import Post from "@/src/components/ui/Post";
 import { axiosInstance } from "@/src/lib/AxiosInstance";
 import { TPOst } from "@/src/types";
 
-export default async function FoundItems() {
-  const { data } = await axiosInstance.get(`/items`);
+export default async function FoundItems({
+  searchParams,
+}: {
+  searchParams: any;
+}) {
+  const params = new URLSearchParams(searchParams);
+  const { data } = await axiosInstance.get(`/items`, {
+    params: {
+      searchTerm: params.get("query"),
+    },
+  });
 
   return (
     <Container>
